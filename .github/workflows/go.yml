@@ -1,10 +1,6 @@
 name: Build
 
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
+on: [push]
 
 jobs:
   build:
@@ -31,7 +27,7 @@ jobs:
         go get -u golang.org/x/lint/golint
 
     - name: Lint
-      run: $GOPATH/bin/golint -min_confidence 0.3 ./...
+      run: $HOME/go/bin/golint -min_confidence 0.3 ./...
 
     - name: Build
       run: go build -v .
