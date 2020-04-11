@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  redis:
+    container_name: gosearch_redis
+    image: redis:5.0.0-alpine
+    ports:
+      - 6379:6379
+    restart: on-failure
