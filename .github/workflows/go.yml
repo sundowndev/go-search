@@ -7,7 +7,6 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -29,6 +28,10 @@ jobs:
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
         fi
+        go get -u golang.org/x/lint/golint
+
+    - name: Lint
+      run: $GOPATH/bin/golint -min_confidence 0.3 ./...
 
     - name: Build
       run: go build -v .
