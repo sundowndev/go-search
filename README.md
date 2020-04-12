@@ -7,27 +7,26 @@ dans Redis.
 
 Les tâches qui le composent sont les suivantes:
 
-1. créer un programme en ligne de commande acceptant une commande d'indexation,
+- [x] créer un programme en ligne de commande acceptant une commande d'indexation,
    une de déboguage, et une de recherche
-2. créer une fonction pouvant enregistrer une valeur dans un "sorted set" Redis
-3. créer une fonction pouvant extraire un résultat d'un "sorted set" Redis
-4. créer un test d'intégration combinant les deux précédentes
-5. créer une fonction lisant un fichier texte mot par mot
-6. créer une fonction enregistrant les statistiques de mots d'un fichier au moyen
+- [ ] créer une fonction pouvant enregistrer une valeur dans un "sorted set" Redis
+- [ ] créer une fonction pouvant extraire un résultat d'un "sorted set" Redis
+- [ ] créer un test d'intégration combinant les deux précédentes
+- [ ] créer une fonction lisant un fichier texte mot par mot
+- [ ] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen
    des fonctions de 2. et 5.
-7. créer une fonction parcourant une sous-arborescence disque pour en examiner
+- [ ] créer une fonction parcourant une sous-arborescence disque pour en examiner
   tous les fichiers
-8. créer une fonction identifiant si un fichier est reconnu par Go comme un
+- [ ] créer une fonction identifiant si un fichier est reconnu par Go comme un
   fichier texte
-9. intégrer les deux précédentes pour que le parcours ne traite que les fichiers
+- [ ] intégrer les deux précédentes pour que le parcours ne traite que les fichiers
   reconnus comme texte
-10. intégrer la fonction avec l'écriture des comptes de mots dans Redis
-11. écrire une fonction implémentant la commande de déboguage, qui liste tout le
+- [ ] intégrer la fonction avec l'écriture des comptes de mots dans Redis
+- [ ] écrire une fonction implémentant la commande de déboguage, qui liste tout le
   contenu de la base Redis après une indexation
-12. écrire une fonction implémentant la commande de recherche, qui interroge
+- [ ] écrire une fonction implémentant la commande de recherche, qui interroge
   Redis pour ramener les meilleurs résultats pour une recherche
-13. contextualiser l'affichage des résultats avec le texte avoisinant
-
+- [ ] contextualiser l'affichage des résultats avec le texte avoisinant
 
 ## Ressources
 
