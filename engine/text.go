@@ -10,7 +10,7 @@ import (
 // CountWord returns the number of
 // occurence for a word in a given text.
 func CountWord(text, word string) (count int) {
-	for _, v := range strings.Split(text, " ") {
+	for _, v := range GetWordsFromText(text) {
 		if v == word {
 			count++
 		}
@@ -38,7 +38,15 @@ func IsTextFile(file []byte) bool {
 	return strings.Index(contentType, "text/plain") > -1
 }
 
-// GetFirstMatchLine returns the first line to match the given word.
-func GetFirstMatchLine(data string, word string) string {
-	return "..."
+// GetFirstMatchingLine returns the first line to match the given word.
+func GetFirstMatchingLine(text string, word string) string {
+	scanner := bufio.NewScanner(bytes.NewBufferString(text))
+	scanner.Split(bufio.ScanLines)
+	for scanner.Scan() {
+		if strings.Index(scanner.Text(), word) > -1 {
+			return scanner.Text()
+		}
+	}
+
+	return ""
 }

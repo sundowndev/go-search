@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -44,10 +45,16 @@ var queryCmd = &cobra.Command{
 				continue
 			}
 
+			// Open File
+			f, err := ioutil.ReadFile(file)
+			if err != nil {
+				panic(err)
+			}
+
 			queryResults = append(queryResults, &engine.QueryResult{
 				File:       file,
 				Count:      score,
-				FirstMatch: engine.GetFirstMatchLine("", word),
+				FirstMatch: engine.GetFirstMatchingLine(string(f), word),
 			})
 		}
 

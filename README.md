@@ -84,16 +84,14 @@ Les tâches qui le composent sont les suivantes:
 - [x] créer une fonction pouvant extraire un résultat d'un "sorted set" Redis
 - [x] créer un test d'intégration combinant les deux précédentes
 - [x] créer une fonction lisant un fichier texte mot par mot
-- [ ] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen des fonctions de 2. et 5.
-- [ ] créer une fonction parcourant une sous-arborescence disque pour en examiner tous les fichiers
-
+- [x] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen des fonctions de 2. et 5.
+- [x] créer une fonction parcourant une sous-arborescence disque pour en examiner tous les fichiers
 - [x] créer une fonction identifiant si un fichier est reconnu par Go comme un fichier texte
 - [x] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
-
-- [ ] intégrer la fonction avec l'écriture des comptes de mots dans Redis
+- [x] intégrer la fonction avec l'écriture des comptes de mots dans Redis
 - [x] écrire une fonction implémentant la commande de déboguage, qui liste tout le contenu de la base Redis après une indexation
 - [ ] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
-- [ ] contextualiser l'affichage des résultats avec le texte avoisinant
+- [x] contextualiser l'affichage des résultats avec le texte avoisinant
 
 ## Ressources
 

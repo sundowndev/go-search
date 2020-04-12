@@ -30,19 +30,22 @@ var indexCmd = &cobra.Command{
 
 		fmt.Printf("Walking %v...\n", path)
 
-		// Open File
-		f, err := ioutil.ReadFile(path)
-		if err != nil {
-			panic(err)
+		for _, file := range engine.GetFilesFromDir(path) {
+			// Open File
+			f, err := ioutil.ReadFile(file)
+			if err != nil {
+				panic(err)
+			}
+
+			if engine.IsTextFile(f) == false {
+				return
+			}
+
+			content := string(f)
+
+			client.AddFile(file, content)
+
+			fmt.Println("Successfully indexed file", file)
 		}
-		content := string(f)
-
-		if engine.IsTextFile(f) == false {
-			return
-		}
-
-		client.AddFile(path, content)
-
-		fmt.Println("Successfully indexed file", path)
 	},
 }
