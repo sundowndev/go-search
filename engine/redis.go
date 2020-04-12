@@ -3,7 +3,7 @@ package engine
 import (
 	"strings"
 
-	"github.com/go-redis/redis/v7"
+	redis "github.com/go-redis/redis/v7"
 )
 
 // RedisClient is an idiomatic interface for the Redis client,

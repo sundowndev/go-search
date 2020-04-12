@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -36,35 +37,37 @@ var dumpCmd = &cobra.Command{
 		}
 		defer client.Close()
 
-		var results []*dumpResult
+		// var results []*dumpResult
+		var filesf []map[string]map[string]int
 
-		keys, err := client.GetAllKeys()
+		files, err := client.GetAllKeys()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
 
-		for _, key := range keys {
-			value, err := client.GetKey(key)
+		for _, file := range files {
+			words, err := client.GetKey(file)
 			if err != nil {
 				log.Fatalf("error: %v", err)
 			}
 
-			var files []*dumpResultFile
+			// Open File
+			f, err := ioutil.ReadFile(file)
+			if err != nil {
+				panic(err)
+			}
+			fileContent := string(f)
 
-			for _, path := range value {
-				files = append(files, &dumpResultFile{
-					Path:        path,
-					Occurrences: engine.CountWord("", key),
+			for _, word := range words {
+				filesf = append(filesf, map[string]map[string]int{
+					word: map[string]int{
+						file: engine.CountWord(fileContent, word),
+					},
 				})
 			}
-
-			results = append(results, &dumpResult{
-				Word:  key,
-				Files: files,
-			})
 		}
 
-		data, err := yaml.Marshal(&results)
+		data, err := yaml.Marshal(&filesf)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
