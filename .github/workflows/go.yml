@@ -32,5 +32,8 @@ jobs:
     - name: Build
       run: go build -v .
 
+    - name: Launch Redis server
+      run: docker-compose up -d
+
     - name: Test
       run: go test -v ./...
