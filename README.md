@@ -2,6 +2,8 @@
 
 ## Rendu
 
+Réalisé en environ 16 heures reparties sur 2 jours.
+
 ```
 $ cat $(pwd)/fixtures/readme.txt
 Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
@@ -15,7 +17,10 @@ Walking /Users/user907865/www/go-search/fixtures...
 Successfully indexed file /Users/user907865/www/go-search/fixtures/readme.txt
 
 $ search query aussi
-# TODO
+Querying index for "aussi":
+
+                                               File|   Count|                                           First match|
+/Users/user907865/www/go-search/fixtures/readme.txt|       2|cinq siècles, mais s'est aussi adapté à la bureautique|
 
 $ search dump
 - word: texte
@@ -82,8 +87,8 @@ Les tâches qui le composent sont les suivantes:
 - [ ] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen des fonctions de 2. et 5.
 - [ ] créer une fonction parcourant une sous-arborescence disque pour en examiner tous les fichiers
 
-- [ ] créer une fonction identifiant si un fichier est reconnu par Go comme un fichier texte
-- [ ] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
+- [x] créer une fonction identifiant si un fichier est reconnu par Go comme un fichier texte
+- [x] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
 
 - [ ] intégrer la fonction avec l'écriture des comptes de mots dans Redis
 - [x] écrire une fonction implémentant la commande de déboguage, qui liste tout le contenu de la base Redis après une indexation
