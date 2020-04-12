@@ -29,13 +29,11 @@ func NewRedisClient(addr, port string) (*RedisClient, error) {
 }
 
 // AddFile index a file
-func (c *RedisClient) AddFile(key string, content string) error {
-	words := strings.Split(content, " ")
-
-	for _, v := range words {
-		if err := c.conn.ZAdd(strings.ToLower(v), &redis.Z{
-			Score:  float64(1),
-			Member: key,
+func (c *RedisClient) AddFile(file, content string) error {
+	for _, v := range GetWordsFromText(content) {
+		if err := c.conn.ZAdd(file, &redis.Z{
+			Score:  float64(CountWord(content, v)),
+			Member: strings.ToLower(v),
 		}).Err(); err != nil {
 			return err
 		}
@@ -44,20 +42,19 @@ func (c *RedisClient) AddFile(key string, content string) error {
 	return nil
 }
 
-// ZRevRange search for a key
-func (c *RedisClient) ZRevRange(key string) ([]string, error) {
+// GetKey search for a key
+func (c *RedisClient) GetKey(key string) ([]string, error) {
 	return c.conn.ZRevRange(key, 0, -1).Result()
 }
 
-// GetKey returns a key value
-func (c *RedisClient) GetKey(key string) (string, error) {
-	return c.conn.Get(key).Result()
+// GetScore get score of element
+func (c *RedisClient) GetScore(key, member string) float64 {
+	return c.conn.ZScore(key, member).Val()
 }
 
 // GetAllKeys returns a key value
 func (c *RedisClient) GetAllKeys() (keys []string, err error) {
-	keys, _, err = c.conn.Scan(0, "*", 15).Result()
-
+	keys, _, err = c.conn.Scan(0, "*", 35).Result()
 	return
 }
 

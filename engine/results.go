@@ -12,7 +12,7 @@ const tabPaddingChar = ' '
 // QueryResult ...
 type QueryResult struct {
 	File       string
-	Count      int
+	Count      float64
 	FirstMatch string
 }
 
