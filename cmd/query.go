@@ -30,7 +30,7 @@ var queryCmd = &cobra.Command{
 
 		fmt.Printf("Querying index for \"%s\":\n\n", word)
 
-		results, err := client.ZRevRange(word)
+		results, err := client.GetAllKeys()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -38,10 +38,16 @@ var queryCmd = &cobra.Command{
 		var queryResults []*engine.QueryResult
 
 		for _, file := range results {
+			score := client.GetScore(file, word)
+
+			if score == 0 {
+				continue
+			}
+
 			queryResults = append(queryResults, &engine.QueryResult{
 				File:       file,
-				Count:      1,
-				FirstMatch: "...",
+				Count:      score,
+				FirstMatch: engine.GetFirstMatchLine("", word),
 			})
 		}
 
