@@ -2,6 +2,8 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -23,10 +25,18 @@ var indexCmd = &cobra.Command{
 			fmt.Println("Failed to connect to database", redisAddr, redisPort)
 			os.Exit(1)
 		}
+		defer client.Close()
 
 		filePath := args[0]
 
-		client.AddFile(filePath, 3)
+		fmt.Printf("Walking %v...\n", filePath)
+
+		data, err := ioutil.ReadFile(filePath)
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		client.AddFile(filePath, string(data))
 
 		fmt.Println("Successfully indexed file", filePath)
 	},

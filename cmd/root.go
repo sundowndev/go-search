@@ -17,9 +17,9 @@ func init() {
 }
 
 var rootCmd = &cobra.Command{
-	Use:     "gosearch [COMMANDS] [OPTIONS]",
+	Use:     "search [COMMANDS] [OPTIONS]",
 	Short:   "A simple CLI search engine for your file system backed by Redis",
-	Example: "gosearch index $(pwd)/fixtures",
+	Example: "search index $(pwd)/fixtures",
 }
 
 // Execute is a function that executes the root command

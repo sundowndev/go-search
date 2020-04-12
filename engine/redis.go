@@ -1,8 +1,6 @@
 package engine
 
 import (
-	"encoding/json"
-	"io/ioutil"
 	"strings"
 
 	"github.com/go-redis/redis/v7"
@@ -31,36 +29,41 @@ func NewRedisClient(addr, port string) (*RedisClient, error) {
 }
 
 // AddFile index a file
-func (c *RedisClient) AddFile(file string, score int) error {
-	data, err := ioutil.ReadFile(file)
-	if err != nil {
-		return err
+func (c *RedisClient) AddFile(key string, content string) error {
+	words := strings.Split(content, " ")
+
+	for _, v := range words {
+		if err := c.conn.ZAdd(strings.ToLower(v), &redis.Z{
+			Score:  float64(1),
+			Member: key,
+		}).Err(); err != nil {
+			return err
+		}
 	}
 
-	words := strings.Split(string(data), " ")
+	return nil
+}
 
-	wordsJSONArray, err := json.Marshal(&words)
-	if err != nil {
-		return err
-	}
-
-	return c.conn.Set(file, wordsJSONArray, 0).Err()
+// ZRevRange search for a key
+func (c *RedisClient) ZRevRange(key string) ([]string, error) {
+	return c.conn.ZRevRange(key, 0, -1).Result()
 }
 
 // GetKey returns a key value
 func (c *RedisClient) GetKey(key string) (string, error) {
-	// Utilisez Redigo pour lire toutes les valeurs de la clef, et les
-	// placer dans une tranche de chaînes. Renvoyez une erreur si nécessaire.
 	return c.conn.Get(key).Result()
 }
 
 // GetAllKeys returns a key value
 func (c *RedisClient) GetAllKeys() (keys []string, err error) {
-	// Utilisez Redigo pour lire toutes les valeurs de la clef, et les
-	// placer dans une tranche de chaînes. Renvoyez une erreur si nécessaire.
 	keys, _, err = c.conn.Scan(0, "*", 15).Result()
 
 	return
+}
+
+// FlushAll drop the database
+func (c *RedisClient) FlushAll() error {
+	return c.conn.FlushAll().Err()
 }
 
 // Close closes the Redis connection

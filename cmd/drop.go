@@ -10,12 +10,12 @@ import (
 
 func init() {
 	// Register command
-	rootCmd.AddCommand(dumpCmd)
+	rootCmd.AddCommand(dropCmd)
 }
 
-var dumpCmd = &cobra.Command{
-	Use:   "dump",
-	Short: "Dump database keys",
+var dropCmd = &cobra.Command{
+	Use:   "drop",
+	Short: "Drop all indexes",
 	Run: func(cmd *cobra.Command, args []string) {
 		client, err := engine.NewRedisClient(redisAddr, redisPort)
 		if err != nil {
@@ -24,13 +24,10 @@ var dumpCmd = &cobra.Command{
 		}
 		defer client.Close()
 
-		fmt.Printf("Dumping last 15 keys...\n\n")
+		fmt.Println("Dropping database...")
 
-		keys, _ := client.GetAllKeys()
+		client.FlushAll()
 
-		for _, key := range keys {
-			value, _ := client.GetKey(key)
-			fmt.Println(key, value)
-		}
+		fmt.Println("Done.")
 	},
 }
