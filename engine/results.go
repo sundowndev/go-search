@@ -23,6 +23,6 @@ func ShowResults(results []*QueryResult) {
 
 	fmt.Fprintln(w, "File\tCount\tFirst match\t")
 	for _, v := range results {
-		fmt.Fprintf(w, "%v\t%v\t%v\t", v.File, v.Count, v.FirstMatch)
+		fmt.Fprintf(w, "%v\t%v\t%v\t\n", v.File, v.Count, v.FirstMatch)
 	}
 }
