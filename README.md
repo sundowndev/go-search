@@ -1,4 +1,70 @@
 # Devoir à distance 3A Web du 05/04/20
+
+## Rendu
+
+```
+$ cat $(pwd)/fixtures/readme.txt
+Le Lorem Ipsum est simplement du faux texte employé dans la composition et la mise en page avant impression. Le Lorem Ipsum est le faux texte standard de l'imprimerie depuis les années 1500, quand un imprimeur anonyme assembla ensemble des morceaux de texte pour réaliser un livre spécimen de polices de texte. Il n'a pas fait que survivre cinq siècles, mais s'est aussi adapté à la bureautique informatique, sans que son contenu n'en soit modifié. Il a été popularisé dans les années 1960 grâce à la vente de feuilles Letraset contenant des passages du Lorem Ipsum, et, plus récemment, par son inclusion dans des applications de mise en page de texte, comme Aldus PageMaker.
+
+Contrairement à une opinion répandue, le Lorem Ipsum n'est pas simplement du texte aléatoire. Il trouve ses racines dans une oeuvre de la littérature latine classique datant de 45 av. J.-C., le rendant vieux de 2000 ans. Un professeur du Hampden-Sydney College, en Virginie, s'est intéressé à un des mots latins les plus obscurs, consectetur, extrait d'un passage du Lorem Ipsum, et en étudiant tous les usages de ce mot dans la littérature classique, découvrit la source incontestable du Lorem Ipsum. Il provient en fait des sections 1.10.32 et 1.10.33 du "De Finibus Bonorum et Malorum" (Des Suprêmes Biens et des Suprêmes Maux) de Cicéron. Cet ouvrage, très populaire pendant la Renaissance, est un traité sur la théorie de l'éthique. Les premières lignes du Lorem Ipsum, "Lorem ipsum dolor sit amet...", proviennent de la section 1.10.32.
+
+L'extrait standard de Lorem Ipsum utilisé depuis le XVIè siècle est reproduit ci-dessous pour les curieux. Les sections 1.10.32 et 1.10.33 du "De Finibus Bonorum et Malorum" de Cicéron sont aussi reproduites dans leur version originale, accompagnée de la traduction anglaise de H. Rackham (1914).
+
+$ search index $(pwd)/fixtures
+Walking /Users/user907865/www/go-search/fixtures...
+Successfully indexed file /Users/user907865/www/go-search/fixtures/readme.txt
+
+$ search query aussi
+# TODO
+
+$ search dump
+- word: texte
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: ress
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: classique
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: composition
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: aliser
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: oeuvre
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: feuilles
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: ans
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: il
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: survivre
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: simplement
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: s
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: a
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: dessous
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+- word: des
+  files:
+  - /Users/user907865/www/go-search/fixtures/readme.txt
+```
+
 ## Présentation
 
 Le but du devoir est de construire un moteur de recherche en texte intégral
@@ -9,23 +75,19 @@ Les tâches qui le composent sont les suivantes:
 
 - [x] créer un programme en ligne de commande acceptant une commande d'indexation,
    une de déboguage, et une de recherche
-- [ ] créer une fonction pouvant enregistrer une valeur dans un "sorted set" Redis
-- [ ] créer une fonction pouvant extraire un résultat d'un "sorted set" Redis
-- [ ] créer un test d'intégration combinant les deux précédentes
-- [ ] créer une fonction lisant un fichier texte mot par mot
-- [ ] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen
-   des fonctions de 2. et 5.
-- [ ] créer une fonction parcourant une sous-arborescence disque pour en examiner
-  tous les fichiers
-- [ ] créer une fonction identifiant si un fichier est reconnu par Go comme un
-  fichier texte
-- [ ] intégrer les deux précédentes pour que le parcours ne traite que les fichiers
-  reconnus comme texte
+- [x] créer une fonction pouvant enregistrer une valeur dans un "sorted set" Redis
+- [x] créer une fonction pouvant extraire un résultat d'un "sorted set" Redis
+- [x] créer un test d'intégration combinant les deux précédentes
+- [x] créer une fonction lisant un fichier texte mot par mot
+- [ ] créer une fonction enregistrant les statistiques de mots d'un fichier au moyen des fonctions de 2. et 5.
+- [ ] créer une fonction parcourant une sous-arborescence disque pour en examiner tous les fichiers
+
+- [ ] créer une fonction identifiant si un fichier est reconnu par Go comme un fichier texte
+- [ ] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
+
 - [ ] intégrer la fonction avec l'écriture des comptes de mots dans Redis
-- [ ] écrire une fonction implémentant la commande de déboguage, qui liste tout le
-  contenu de la base Redis après une indexation
-- [ ] écrire une fonction implémentant la commande de recherche, qui interroge
-  Redis pour ramener les meilleurs résultats pour une recherche
+- [x] écrire une fonction implémentant la commande de déboguage, qui liste tout le contenu de la base Redis après une indexation
+- [ ] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
 - [ ] contextualiser l'affichage des résultats avec le texte avoisinant
 
 ## Ressources
