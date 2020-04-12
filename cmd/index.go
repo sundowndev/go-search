@@ -3,7 +3,6 @@ package cmd
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -27,17 +26,23 @@ var indexCmd = &cobra.Command{
 		}
 		defer client.Close()
 
-		filePath := args[0]
+		path := args[0]
 
-		fmt.Printf("Walking %v...\n", filePath)
+		fmt.Printf("Walking %v...\n", path)
 
-		data, err := ioutil.ReadFile(filePath)
+		// Open File
+		f, err := ioutil.ReadFile(path)
 		if err != nil {
-			log.Fatal(err)
+			panic(err)
+		}
+		content := string(f)
+
+		if engine.IsTextFile(f) == false {
+			return
 		}
 
-		client.AddFile(filePath, string(data))
+		client.AddFile(path, content)
 
-		fmt.Println("Successfully indexed file", filePath)
+		fmt.Println("Successfully indexed file", path)
 	},
 }
