@@ -9,7 +9,7 @@ import (
 const tabPadding = 3
 const tabPaddingChar = ' '
 
-// QueryResult ...
+// QueryResult defines the structure of a query result
 type QueryResult struct {
 	File       string
 	Count      float64
