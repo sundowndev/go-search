@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"net/http"
+	"regexp"
 	"strings"
 )
 
@@ -24,7 +25,9 @@ func GetWordsFromText(text string) (words []string) {
 	scanner := bufio.NewScanner(bytes.NewBufferString(text))
 	scanner.Split(bufio.ScanWords)
 	for scanner.Scan() {
-		words = append(words, strings.ToLower(scanner.Text()))
+		w := strings.ToLower(scanner.Text())
+		re, _ := regexp.Compile("[,|.|(|)|_]")
+		words = append(words, re.ReplaceAllString(w, ""))
 	}
 
 	return words
@@ -42,8 +45,9 @@ func IsTextFile(file []byte) bool {
 func GetFirstMatchingLine(text string, word string) string {
 	scanner := bufio.NewScanner(bytes.NewBufferString(text))
 	scanner.Split(bufio.ScanLines)
+
 	for scanner.Scan() {
-		if strings.Index(scanner.Text(), word) > -1 {
+		if strings.Index(strings.ToLower(scanner.Text()), word) > -1 {
 			return scanner.Text()
 		}
 	}

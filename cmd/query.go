@@ -50,11 +50,12 @@ var queryCmd = &cobra.Command{
 			if err != nil {
 				panic(err)
 			}
+			text := string(f)
 
 			queryResults = append(queryResults, &engine.QueryResult{
 				File:       file,
 				Count:      score,
-				FirstMatch: engine.GetFirstMatchingLine(string(f), word),
+				FirstMatch: engine.GetFirstMatchingLine(text, word),
 			})
 		}
 

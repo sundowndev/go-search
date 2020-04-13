@@ -44,7 +44,10 @@ func (c *RedisClient) AddFile(file, content string) error {
 
 // GetKey search for a key
 func (c *RedisClient) GetKey(key string) ([]string, error) {
-	return c.conn.ZRevRange(key, 0, -1).Result()
+	return c.conn.ZRevRangeByScore(key, &redis.ZRangeBy{
+		Offset: 0,
+		Count:  -1,
+	}).Result()
 }
 
 // GetScore get score of element
