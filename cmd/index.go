@@ -38,7 +38,7 @@ var indexCmd = &cobra.Command{
 			}
 
 			if engine.IsTextFile(f) == false {
-				return
+				continue
 			}
 
 			content := string(f)
