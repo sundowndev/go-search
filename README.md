@@ -73,7 +73,7 @@ Les tâches qui le composent sont les suivantes:
 - [x] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
 - [x] intégrer la fonction avec l'écriture des comptes de mots dans Redis
 - [x] écrire une fonction implémentant la commande de déboguage, qui liste tout le contenu de la base Redis après une indexation
-- [ ] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
+- [x] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
 - [x] contextualiser l'affichage des résultats avec le texte avoisinant
 
 ## Ressources
