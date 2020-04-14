@@ -31,5 +31,6 @@ func TestText(t *testing.T) {
 		text := "1 no\n2no\n3 yes"
 
 		assert.Equal("3 yes", GetFirstMatchingLine(text, "yes"), "should be equal")
+		assert.Equal("", GetFirstMatchingLine(text, "maybe"), "should be equal")
 	})
 }

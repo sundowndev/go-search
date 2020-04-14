@@ -26,7 +26,10 @@ var dropCmd = &cobra.Command{
 
 		fmt.Println("Dropping database...")
 
-		client.FlushAll()
+		err = client.FlushAll()
+		if err != nil {
+			panic(err)
+		}
 
 		fmt.Println("Done.")
 	},

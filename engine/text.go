@@ -38,7 +38,7 @@ func GetWordsFromText(text string) (words []string) {
 func IsTextFile(file []byte) bool {
 	contentType := http.DetectContentType(file)
 
-	return strings.Index(contentType, "text/plain") > -1
+	return strings.Contains(contentType, "text/plain")
 }
 
 // GetFirstMatchingLine returns the first line to match the given word.
@@ -47,7 +47,7 @@ func GetFirstMatchingLine(text string, word string) string {
 	scanner.Split(bufio.ScanLines)
 
 	for scanner.Scan() {
-		if strings.Index(strings.ToLower(scanner.Text()), word) > -1 {
+		if strings.Contains(strings.ToLower(scanner.Text()), word) {
 			return scanner.Text()
 		}
 	}

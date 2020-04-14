@@ -37,13 +37,16 @@ var indexCmd = &cobra.Command{
 				panic(err)
 			}
 
-			if engine.IsTextFile(f) == false {
+			if !engine.IsTextFile(f) {
 				continue
 			}
 
 			content := string(f)
 
-			client.AddFile(file, content)
+			err = client.AddFile(file, content)
+			if err != nil {
+				panic(err)
+			}
 
 			fmt.Println("Successfully indexed file", file)
 		}
