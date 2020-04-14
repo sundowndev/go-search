@@ -41,6 +41,7 @@ var queryCmd = &cobra.Command{
 		for _, file := range files {
 			score := client.GetWordScoreFromFile(file, word)
 
+			// If score is 0 then ignore it
 			if score == 0 {
 				continue
 			}
@@ -54,11 +55,11 @@ var queryCmd = &cobra.Command{
 
 			queryResults = append(queryResults, &engine.QueryResult{
 				File:       file,
-				Count:      score,
+				Score:      score,
 				FirstMatch: engine.GetFirstMatchingLine(text, word),
 			})
 		}
 
-		engine.ShowResults(queryResults)
+		engine.ShowResults(engine.SortResultsByScore(queryResults))
 	},
 }
