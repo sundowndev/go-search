@@ -9,11 +9,15 @@ import (
 
 var redisAddr string
 var redisPort string
+var redisPassword string
+var redisDB int
 
 func init() {
 	// Register flags
 	rootCmd.PersistentFlags().StringVar(&redisAddr, "redis-addr", "localhost", "Redis server address")
 	rootCmd.PersistentFlags().StringVar(&redisPort, "redis-port", "6379", "Redis server port")
+	rootCmd.PersistentFlags().StringVar(&redisPassword, "redis-password", "", "Redis server password")
+	rootCmd.PersistentFlags().IntVar(&redisDB, "redis-db", 0, "Redis DB")
 }
 
 var rootCmd = &cobra.Command{

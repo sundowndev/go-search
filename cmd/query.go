@@ -20,7 +20,7 @@ var queryCmd = &cobra.Command{
 	Short: "Run a query against the database",
 	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := engine.NewRedisClient(redisAddr, redisPort)
+		client, err := engine.NewRedisClient(redisAddr, redisPort, "", 0)
 		if err != nil {
 			fmt.Println("Failed to connect to database", redisAddr, redisPort)
 			os.Exit(1)
@@ -31,14 +31,14 @@ var queryCmd = &cobra.Command{
 
 		fmt.Printf("Querying index for \"%s\":\n\n", word)
 
-		results, err := client.GetAllKeys()
+		files, err := client.GetAllKeys()
 		if err != nil {
 			log.Fatal(err)
 		}
 
 		var queryResults []*engine.QueryResult
 
-		for _, file := range results {
+		for _, file := range files {
 			score := client.GetScore(file, word)
 
 			if score == 0 {

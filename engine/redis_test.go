@@ -9,8 +9,10 @@ import (
 )
 
 const (
-	addr = "0.0.0.0"
-	port = "6379"
+	addr     = "0.0.0.0"
+	port     = "6379"
+	password = ""
+	DB       = 0
 )
 
 func TestRedisClient(t *testing.T) {
@@ -18,13 +20,13 @@ func TestRedisClient(t *testing.T) {
 
 	client := redis.NewClient(&redis.Options{
 		Addr:     addr + ":" + port,
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Password: password, // no password set
+		DB:       DB,       // use default DB
 	})
 	defer client.FlushAll()
 	defer client.Close()
 
-	redisClient, err := NewRedisClient(addr, port)
+	redisClient, err := NewRedisClient(addr, port, password, DB)
 	if err != nil {
 		log.Fatal(err)
 	}

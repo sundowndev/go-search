@@ -30,7 +30,7 @@ var dumpCmd = &cobra.Command{
 	Use:   "dump",
 	Short: "Dump database keys",
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := engine.NewRedisClient(redisAddr, redisPort)
+		client, err := engine.NewRedisClient(redisAddr, redisPort, "", 0)
 		if err != nil {
 			fmt.Println("Failed to connect to database", redisAddr, redisPort)
 			os.Exit(1)

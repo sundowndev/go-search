@@ -17,7 +17,7 @@ var dropCmd = &cobra.Command{
 	Use:   "drop",
 	Short: "Drop all indexes",
 	Run: func(cmd *cobra.Command, args []string) {
-		client, err := engine.NewRedisClient(redisAddr, redisPort)
+		client, err := engine.NewRedisClient(redisAddr, redisPort, redisPassword, redisDB)
 		if err != nil {
 			fmt.Println("Failed to connect to database", redisAddr, redisPort)
 			os.Exit(1)

@@ -13,11 +13,11 @@ type RedisClient struct {
 }
 
 // NewRedisClient returns a Redis client
-func NewRedisClient(addr, port string) (*RedisClient, error) {
+func NewRedisClient(addr, port, password string, db int) (*RedisClient, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     addr + ":" + port,
-		Password: "", // no password set
-		DB:       0,  // use default DB
+		Password: password, // no password set
+		DB:       db,       // use default DB
 	})
 
 	err := client.Ping().Err()
@@ -44,10 +44,7 @@ func (c *RedisClient) AddFile(file, content string) error {
 
 // GetKey search for a key
 func (c *RedisClient) GetKey(key string) ([]string, error) {
-	return c.conn.ZRevRangeByScore(key, &redis.ZRangeBy{
-		Offset: 0,
-		Count:  -1,
-	}).Result()
+	return c.conn.ZRevRange(key, 0, -1).Result()
 }
 
 // GetScore get score of element
