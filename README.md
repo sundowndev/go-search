@@ -31,7 +31,7 @@ Walking /Users/user907865/www/go-search/fixtures...
 Successfully indexed file /Users/user907865/www/go-search/fixtures/0/1/3/guide.txt
 Successfully indexed file /Users/user907865/www/go-search/fixtures/0/1/3/guide.2.txt
 
-$ search query aussi
+$ search query make
 Querying index for "make":
 
                            File|   Count|   First match|
@@ -45,12 +45,7 @@ add:
 also:
   fixtures/0/1/3/guide.2.txt: 4
   fixtures/0/1/3/guide.txt: 2
-an:
-  fixtures/0/1/3/guide.2.txt: 2
-  fixtures/0/1/3/guide.txt: 1
-apt:
-  fixtures/0/1/3/guide.2.txt: 2
-  fixtures/0/1/3/guide.txt: 1
+...
 ```
 
 ## Présentation
@@ -73,7 +68,7 @@ Les tâches qui le composent sont les suivantes:
 - [x] intégrer les deux précédentes pour que le parcours ne traite que les fichiers reconnus comme texte
 - [x] intégrer la fonction avec l'écriture des comptes de mots dans Redis
 - [x] écrire une fonction implémentant la commande de déboguage, qui liste tout le contenu de la base Redis après une indexation
-- [ ] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
+- [x] écrire une fonction implémentant la commande de recherche, qui interroge Redis pour ramener les meilleurs résultats pour une recherche
 - [x] contextualiser l'affichage des résultats avec le texte avoisinant
 
 ## Ressources
