@@ -11,16 +11,6 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
-type dumpResultFile struct {
-	Path        string `yaml:"path"`
-	Occurrences int    `yaml:"occurrences"`
-}
-
-type dumpResult struct {
-	Word  string            `yaml:"word"`
-	Files []*dumpResultFile `yaml:"files"`
-}
-
 func init() {
 	// Register command
 	rootCmd.AddCommand(dumpCmd)
