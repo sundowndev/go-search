@@ -2,6 +2,7 @@ package engine
 
 import (
 	"log"
+	"sync"
 	"testing"
 
 	"github.com/go-redis/redis/v7"
@@ -36,11 +37,16 @@ func TestRedisClient(t *testing.T) {
 		t.Run("should use ZADD", func(t *testing.T) {
 			client.FlushAll()
 
-			err := redisClient.AddFile("file1", "word")
+			var wg sync.WaitGroup
+			wg.Add(2)
+
+			err := redisClient.AddFile("file1", "word", &wg)
 			assert.Equal(nil, err, "should be equal")
 
-			err = redisClient.AddFile("file2", "word")
+			err = redisClient.AddFile("file2", "word", &wg)
 			assert.Equal(nil, err, "should be equal")
+
+			wg.Wait()
 
 			values, err2 := client.ZRevRange("file1", 0, -1).Result()
 			assert.Equal(nil, err2, "should be equal")

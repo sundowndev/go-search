@@ -8,9 +8,9 @@ import (
 	"strings"
 )
 
-// CountWord returns the number of
+// CountWordInText returns the number of
 // occurence for a word in a given text.
-func CountWord(text, word string) (count int) {
+func CountWordInText(text, word string) (count int) {
 	for _, v := range GetWordsFromText(text) {
 		if v == word {
 			count++

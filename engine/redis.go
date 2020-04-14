@@ -2,6 +2,7 @@ package engine
 
 import (
 	"strings"
+	"sync"
 
 	redis "github.com/go-redis/redis/v7"
 )
@@ -29,11 +30,13 @@ func NewRedisClient(addr, port, password string, db int) (*RedisClient, error) {
 }
 
 // AddFile index a file
-func (c *RedisClient) AddFile(file, content string) error {
-	for _, v := range GetWordsFromText(content) {
+func (c *RedisClient) AddFile(file, content string, wg *sync.WaitGroup) error {
+	defer wg.Done()
+
+	for _, word := range GetWordsFromText(content) {
 		if err := c.conn.ZAdd(file, &redis.Z{
-			Score:  float64(CountWord(content, v)),
-			Member: strings.ToLower(v),
+			Score:  float64(CountWordInText(content, word)),
+			Member: strings.ToLower(word),
 		}).Err(); err != nil {
 			return err
 		}

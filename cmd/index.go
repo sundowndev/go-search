@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sync"
 
 	"github.com/spf13/cobra"
 	"github.com/sundowndev/go-search/engine"
@@ -30,7 +31,12 @@ var indexCmd = &cobra.Command{
 
 		fmt.Printf("Walking %v...\n", path)
 
-		for _, file := range engine.GetFilesFromDir(path) {
+		files := engine.GetFilesFromDir(path)
+
+		var wg sync.WaitGroup
+		wg.Add(len(files) - 1)
+
+		for _, file := range files {
 			// Open File
 			f, err := ioutil.ReadFile(file)
 			if err != nil {
@@ -43,9 +49,11 @@ var indexCmd = &cobra.Command{
 
 			content := string(f)
 
-			client.AddFile(file, content)
+			go client.AddFile(file, content, &wg)
 
 			fmt.Println("Successfully indexed file", file)
 		}
+
+		wg.Wait()
 	},
 }

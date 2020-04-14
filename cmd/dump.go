@@ -52,7 +52,7 @@ var dumpCmd = &cobra.Command{
 					results[word] = make(map[string]int)
 				}
 
-				results[word][file] = engine.CountWord(fileContent, word)
+				results[word][file] = engine.CountWordInText(fileContent, word)
 			}
 		}
 
