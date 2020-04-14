@@ -31,7 +31,7 @@ var queryCmd = &cobra.Command{
 
 		fmt.Printf("Querying index for \"%s\":\n\n", word)
 
-		files, err := client.GetAllKeys()
+		files, err := client.GetAllFiles()
 		if err != nil {
 			log.Fatal(err)
 		}
@@ -39,7 +39,7 @@ var queryCmd = &cobra.Command{
 		var queryResults []*engine.QueryResult
 
 		for _, file := range files {
-			score := client.GetScore(file, word)
+			score := client.GetWordScoreFromFile(file, word)
 
 			if score == 0 {
 				continue

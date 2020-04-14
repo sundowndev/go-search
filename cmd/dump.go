@@ -37,16 +37,15 @@ var dumpCmd = &cobra.Command{
 		}
 		defer client.Close()
 
-		// var results []*dumpResult
-		var filesf []map[string]map[string]int
+		var results = make(map[string]map[string]int)
 
-		files, err := client.GetAllKeys()
+		files, err := client.GetAllFiles()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
 
 		for _, file := range files {
-			words, err := client.GetKey(file)
+			words, err := client.GetWordsFromFile(file)
 			if err != nil {
 				log.Fatalf("error: %v", err)
 			}
@@ -59,15 +58,15 @@ var dumpCmd = &cobra.Command{
 			fileContent := string(f)
 
 			for _, word := range words {
-				filesf = append(filesf, map[string]map[string]int{
-					word: map[string]int{
-						file: engine.CountWord(fileContent, word),
-					},
-				})
+				if results[word] == nil {
+					results[word] = make(map[string]int)
+				}
+
+				results[word][file] = engine.CountWord(fileContent, word)
 			}
 		}
 
-		data, err := yaml.Marshal(&filesf)
+		data, err := yaml.Marshal(&results)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
