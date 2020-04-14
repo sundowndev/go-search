@@ -31,7 +31,7 @@ Walking /Users/user907865/www/go-search/fixtures...
 Successfully indexed file /Users/user907865/www/go-search/fixtures/0/1/3/guide.txt
 Successfully indexed file /Users/user907865/www/go-search/fixtures/0/1/3/guide.2.txt
 
-$ search query aussi
+$ search query make
 Querying index for "make":
 
                            File|   Count|   First match|
@@ -45,12 +45,7 @@ add:
 also:
   fixtures/0/1/3/guide.2.txt: 4
   fixtures/0/1/3/guide.txt: 2
-an:
-  fixtures/0/1/3/guide.2.txt: 2
-  fixtures/0/1/3/guide.txt: 1
-apt:
-  fixtures/0/1/3/guide.2.txt: 2
-  fixtures/0/1/3/guide.txt: 1
+...
 ```
 
 ## Présentation
