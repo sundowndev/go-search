@@ -31,7 +31,7 @@ var queryCmd = &cobra.Command{
 
 		fmt.Printf("Querying index for \"%s\":\n\n", word)
 
-		files, err := client.GetAllFiles()
+		files, err := client.GetFiles()
 		if err != nil {
 			log.Fatal(err)
 		}

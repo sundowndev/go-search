@@ -11,22 +11,22 @@ func TestResults(t *testing.T) {
 
 	t.Run("SortResultsByScore", func(t *testing.T) {
 		results := []*QueryResult{
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      1,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      3,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      9,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      2,
 				FirstMatch: "",
@@ -34,22 +34,22 @@ func TestResults(t *testing.T) {
 		}
 
 		expected := []*QueryResult{
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      9,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      3,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      2,
 				FirstMatch: "",
 			},
-			&QueryResult{
+			{
 				File:       "/file",
 				Score:      1,
 				FirstMatch: "",
