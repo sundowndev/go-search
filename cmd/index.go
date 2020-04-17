@@ -30,14 +30,19 @@ var indexCmd = &cobra.Command{
 
 		fmt.Printf("Walking %v...\n", path)
 
-		for _, file := range engine.GetFilesFromDir(path) {
+		files, err := engine.ScanDir(path)
+		if err != nil {
+			panic(err)
+		}
+
+		for _, file := range files {
 			// Open File
 			f, err := ioutil.ReadFile(file)
 			if err != nil {
 				panic(err)
 			}
 
-			if !engine.IsTextFile(f) {
+			if !engine.IsText(f) {
 				continue
 			}
 

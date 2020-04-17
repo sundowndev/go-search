@@ -57,7 +57,7 @@ func TestRedisClient(t *testing.T) {
 			}).Err()
 			assert.Equal(nil, err, "should be equal")
 
-			values, err2 := redisClient.GetWordsFromFile("word")
+			values, err2 := redisClient.Get("word")
 			assert.Equal(nil, err2, "should be equal")
 
 			assert.Equal([]string{"file"}, values, "should be equal")

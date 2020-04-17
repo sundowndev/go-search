@@ -29,17 +29,12 @@ var dumpCmd = &cobra.Command{
 
 		var results = make(map[string]map[string]int)
 
-		files, err := client.GetAllFiles()
+		files, err := client.GetFiles()
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
 
 		for _, file := range files {
-			words, err := client.GetWordsFromFile(file)
-			if err != nil {
-				log.Fatalf("error: %v", err)
-			}
-
 			// Open File
 			f, err := ioutil.ReadFile(file)
 			if err != nil {
@@ -47,12 +42,12 @@ var dumpCmd = &cobra.Command{
 			}
 			fileContent := string(f)
 
-			for _, word := range words {
-				if results[word] == nil {
-					results[word] = make(map[string]int)
+			for w, s := range engine.Scan(fileContent) {
+				if results[w] == nil {
+					results[w] = make(map[string]int)
 				}
 
-				results[word][file] = engine.CountWord(fileContent, word)
+				results[w][file] = s
 			}
 		}
 
