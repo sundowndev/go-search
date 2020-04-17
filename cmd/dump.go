@@ -29,7 +29,7 @@ var dumpCmd = &cobra.Command{
 
 		var results = make(map[string]map[string]int)
 
-		files, err := client.GetFiles()
+		files, err := engine.GetFiles(client)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
