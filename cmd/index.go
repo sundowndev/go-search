@@ -24,7 +24,7 @@ var indexCmd = &cobra.Command{
 			fmt.Println("Failed to connect to database", redisAddr, redisPort)
 			os.Exit(1)
 		}
-		defer client.Close()
+		defer engine.Close(client)
 
 		path := args[0]
 
@@ -48,7 +48,7 @@ var indexCmd = &cobra.Command{
 
 			content := string(f)
 
-			err = client.AddFile(file, content)
+			err = engine.AddFile(client, file, content)
 			if err != nil {
 				panic(err)
 			}

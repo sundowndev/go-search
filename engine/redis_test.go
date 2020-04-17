@@ -1,10 +1,9 @@
 package engine
 
 import (
-	"log"
 	"testing"
 
-	"github.com/go-redis/redis/v7"
+	redis "github.com/go-redis/redis/v7"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -26,20 +25,14 @@ func TestRedisClient(t *testing.T) {
 	defer client.FlushAll()
 	defer client.Close()
 
-	redisClient, err := NewRedisClient(addr, port, password, DB)
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer redisClient.Close()
-
 	t.Run("RedisClient", func(t *testing.T) {
 		t.Run("should use ZADD", func(t *testing.T) {
 			client.FlushAll()
 
-			err := redisClient.AddFile("file1", "word")
+			err := AddFile(client, "file1", "word")
 			assert.Equal(nil, err, "should be equal")
 
-			err = redisClient.AddFile("file2", "word")
+			err = AddFile(client, "file2", "word")
 			assert.Equal(nil, err, "should be equal")
 
 			values, err2 := client.ZRevRange("file1", 0, -1).Result()
@@ -57,7 +50,7 @@ func TestRedisClient(t *testing.T) {
 			}).Err()
 			assert.Equal(nil, err, "should be equal")
 
-			values, err2 := redisClient.Get("word")
+			values, err2 := Get(client, "word")
 			assert.Equal(nil, err2, "should be equal")
 
 			assert.Equal([]string{"file"}, values, "should be equal")
@@ -69,7 +62,7 @@ func TestRedisClient(t *testing.T) {
 			err := client.Set("test", "value", 0).Err()
 			assert.Equal(nil, err, "should be equal")
 
-			err = redisClient.FlushAll()
+			err = FlushAll(client)
 			assert.Equal(nil, err, "should be equal")
 
 			err = client.Get("test").Err()

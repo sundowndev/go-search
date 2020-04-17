@@ -6,14 +6,8 @@ import (
 	redis "github.com/go-redis/redis/v7"
 )
 
-// RedisClient is an idiomatic interface for the Redis client,
-// adding few methods to interact with the file system.
-type RedisClient struct {
-	conn *redis.Client
-}
-
 // NewRedisClient returns a Redis client
-func NewRedisClient(addr, port, password string, db int) (*RedisClient, error) {
+func NewRedisClient(addr, port, password string, db int) (*redis.Client, error) {
 	client := redis.NewClient(&redis.Options{
 		Addr:     addr + ":" + port,
 		Password: password, // no password set
@@ -25,13 +19,13 @@ func NewRedisClient(addr, port, password string, db int) (*RedisClient, error) {
 		return nil, err
 	}
 
-	return &RedisClient{conn: client}, nil
+	return client, nil
 }
 
-// AddFile index a file
-func (c *RedisClient) AddFile(file, content string) error {
+// AddFile indexes a file and its words in the database
+func AddFile(c *redis.Client, file, content string) error {
 	for w, s := range Scan(content) {
-		if err := c.conn.ZAdd(file, &redis.Z{
+		if err := c.ZAdd(file, &redis.Z{
 			Score:  float64(s),
 			Member: strings.ToLower(w),
 		}).Err(); err != nil {
@@ -43,8 +37,8 @@ func (c *RedisClient) AddFile(file, content string) error {
 }
 
 // Get search for a key
-func (c *RedisClient) Get(key string) ([]string, error) {
-	return c.conn.ZRevRangeByScore(key, &redis.ZRangeBy{
+func Get(c *redis.Client, key string) ([]string, error) {
+	return c.ZRevRangeByScore(key, &redis.ZRangeBy{
 		Min:    "-inf",
 		Max:    "+inf",
 		Offset: 0,
@@ -52,23 +46,23 @@ func (c *RedisClient) Get(key string) ([]string, error) {
 	}).Result()
 }
 
-// GetWordScoreFromFile get score of element
-func (c *RedisClient) GetWordScoreFromFile(key, member string) float64 {
-	return c.conn.ZScore(key, member).Val()
+// GetWordScoreFromFile retreive the score of a file's word
+func GetWordScoreFromFile(c *redis.Client, key, member string) float64 {
+	return c.ZScore(key, member).Val()
 }
 
-// GetFiles returns a key value
-func (c *RedisClient) GetFiles() (keys []string, err error) {
-	keys, _, err = c.conn.Scan(0, "*", -1).Result()
+// GetFiles returns all registered files
+func GetFiles(c *redis.Client) (keys []string, err error) {
+	keys, _, err = c.Scan(0, "*", -1).Result()
 	return
 }
 
-// FlushAll drop the database
-func (c *RedisClient) FlushAll() error {
-	return c.conn.FlushAll().Err()
+// FlushAll drops the database
+func FlushAll(c *redis.Client) error {
+	return c.FlushAll().Err()
 }
 
 // Close closes the Redis connection
-func (c *RedisClient) Close() error {
-	return c.conn.Close()
+func Close(c *redis.Client) error {
+	return c.Close()
 }
